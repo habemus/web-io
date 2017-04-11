@@ -5,7 +5,7 @@ const istanbul = require('gulp-istanbul');
 const mocha    = require('gulp-mocha');
 
 gulp.task('pre-test', function () {
-  return gulp.src(['lib/**/*.js', 'index.js'])
+  return gulp.src(['lib/**/*.js'])
     // Covering files
     .pipe(istanbul())
     // Force `require` to return covered files
@@ -13,7 +13,7 @@ gulp.task('pre-test', function () {
 });
 
 gulp.task('test', ['pre-test'], function () {
-  return gulp.src(['test/**/*.js'])
+  return gulp.src(['test/tests/**/*.js'])
     .pipe(mocha())
     // Creating the reports after tests ran
     .pipe(istanbul.writeReports())

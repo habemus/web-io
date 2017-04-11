@@ -12,7 +12,7 @@ Bluebird.promisifyAll(fs);
 // lib
 const WebsiteIO = require('../../');
 
-describe('sandbox', function () {
+describe.skip('sandbox', function () {
   it('#parseMarkdown(markdown)', function () {
     
     var website = new WebsiteIO();
@@ -87,6 +87,35 @@ describe('sandbox', function () {
     ].join('\n'), 'text/x-markdown').then(rendered => {
       
       console.log(rendered);
+      
+    })
+    
+  });
+  
+  it('#loadData(data)', function () {
+    
+    var website1Path = path.join(__dirname, '../fixtures/website-1');
+    
+    var env = {
+      fsRoot: website1Path,
+      fs: {
+        readFile: function () {
+          var args = Array.from(arguments);
+          args[0] = path.join(website1Path, args[0]);
+          return fs.readFileAsync.apply(null, args);
+        }
+      }
+    }
+    
+    var website = new WebsiteIO(env);
+    
+    return website.loadData({
+      'posts@': '/posts/*.md',
+      'post1@': '/posts/post-1.md',
+    })
+    .then(data => {
+      
+      console.log(data);
       
     })
     
