@@ -3,4 +3,4 @@ language: en
 ---
 # post contents
 
-{{ content }}
+{{ self.content }}

@@ -32,7 +32,7 @@ describe('#loadData(data)', function () {
   });
 });
 
-describe('#loadTemplate(templateName)', function () {
+describe.only('#loadTemplate(templateName)', function () {
   it('loads html templates', function () {
     
     var website = new WebsiteIO({
@@ -41,6 +41,9 @@ describe('#loadTemplate(templateName)', function () {
     
     return website.loadTemplate('templates/post.html')
     .then(context => {
+      
+      console.log(context);
+      
       context.data.language.should.eql('en');
       context.content.should.startWith('<!DOCTYPE html>')
     });

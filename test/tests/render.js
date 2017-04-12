@@ -23,7 +23,7 @@ describe('#render(context)', function () {
       data: {
         title: 'test-title',
       },
-      content: '<h1>{{ title }}</h1>'
+      content: '<h1>{{ page.title }}</h1>'
     })
     .then(rendered => {
       rendered.should.eql('<h1>test-title</h1>')
@@ -31,7 +31,7 @@ describe('#render(context)', function () {
     
   });
   
-  it.only('loads a template if one is defined in the context', function () {
+  it('loads a template if one is defined in the context', function () {
     
     var website = new WebsiteIO({
       fsRoot: path.join(__dirname, '../fixtures/website-1'),
@@ -46,8 +46,6 @@ describe('#render(context)', function () {
     })
     .then(rendered => {
       rendered.should.startWith('<!DOCTYPE html>');
-      
-      console.log(rendered);
     });
     
   });
