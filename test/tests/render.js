@@ -20,10 +20,8 @@ describe('#render(context)', function () {
     });
     
     return website.render({
-      data: {
-        title: 'test-title',
-      },
-      content: '<h1>{{ page.title }}</h1>'
+      title: 'test-title',
+      content: '<h1>{{ current.title }}</h1>'
     })
     .then(rendered => {
       rendered.should.eql('<h1>test-title</h1>')
@@ -38,14 +36,27 @@ describe('#render(context)', function () {
     });
     
     return website.render({
-      data: {
-        title: 'test-title',
-        template: '/templates/post.html',
-      },
+      title: 'test-title',
+      template: '/templates/post.html',
       content: '<h1>content</h1>'
     })
     .then(rendered => {
       rendered.should.startWith('<!DOCTYPE html>');
+    });
+    
+  });
+});
+
+describe('#renderPath(templateName, customData)', function () {
+  it('loads a template if one is defined in the context', function () {
+    
+    var website = new WebsiteIO({
+      fsRoot: path.join(__dirname, '../fixtures/website-1'),
+    });
+    
+    return website.renderPath('/posts/post-1.md').then(rendered => {
+      rendered.should.startWith('<!DOCTYPE html>');
+      /<h1/.test(rendered).should.eql(true);
     });
     
   });

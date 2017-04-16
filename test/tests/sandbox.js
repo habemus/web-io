@@ -12,7 +12,7 @@ Bluebird.promisifyAll(fs);
 // lib
 const WebsiteIO = require('../../');
 
-describe.skip('sandbox', function () {
+describe('sandbox', function () {
   it('#parseMarkdown(markdown)', function () {
     
     var website = new WebsiteIO();
@@ -92,7 +92,7 @@ describe.skip('sandbox', function () {
     
   });
   
-  it('#loadData(data)', function () {
+  it('#loadDataReferences(data)', function () {
     
     var website1Path = path.join(__dirname, '../fixtures/website-1');
     
@@ -109,7 +109,7 @@ describe.skip('sandbox', function () {
     
     var website = new WebsiteIO(env);
     
-    return website.loadData({
+    return website.loadDataReferences({
       'posts@': '/posts/*.md',
       'post1@': '/posts/post-1.md',
     })
@@ -120,4 +120,60 @@ describe.skip('sandbox', function () {
     })
     
   });
+  
+  it('aux#evalData(data, sourceData, prefix)', function () {
+    
+    var data = {
+      someProperty: 'current.title',
+      categories: 'current.categories',
+    };
+    
+    var sourceData = {
+      title: 'Item title',
+      categories: [
+        'cat-1',
+        'cat-2',
+        'cat-3',
+      ]
+    };
+    
+    var evaluated = require('../../lib/auxiliary').evalData(data, sourceData, 'current');
+    
+    evaluated.someProperty.should.eql('Item title');
+    evaluated.categories.length.should.eql(3);
+  });
+  
+  describe.only('fallbacks', function () {
+    it('html -> markdown: /posts/post-1.html -> /posts/post-1.md', function () {
+      
+      var website = new WebsiteIO({
+        fsRoot: path.join(__dirname, '../fixtures/website-1'),
+      });
+      
+      return website.loadContext('/posts/post-1.html').then(context => {
+        
+        console.log(context);
+      });
+    });
+    
+    it.skip('paginated html: /index-10.html -> /index.html (page=10)', function () {
+      var website = new WebsiteIO({
+        fsRoot: path.join(__dirname, '../fixtures/website-1'),
+      });
+      
+      return website.loadContext('/index-10.html').then(context => {
+        console.log(context);
+      });
+    });
+    
+    it.skip('paginated md: /posts-10.html -> /posts.md (page=10)', function () {
+      var website = new WebsiteIO({
+        fsRoot: path.join(__dirname, '../fixtures/website-1'),
+      });
+      
+      return website.loadContext('/posts-10.html').then(context => {
+        console.log(context);
+      });
+    });
+  })
 });

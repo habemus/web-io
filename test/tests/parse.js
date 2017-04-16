@@ -38,7 +38,7 @@ describe('#parseMarkdown(markdown, options)', function () {
     
   });
   
-  it('loads data if the options.loadData is set', function () {
+  it('loads data if the options.loadDataReferences is set', function () {
     var website = new WebsiteIO({
       fsRoot: path.join(__dirname, '../fixtures/website-1'),
     });
@@ -53,7 +53,7 @@ describe('#parseMarkdown(markdown, options)', function () {
       '## Some subtitle',
       ''
     ].join('\n'), {
-      loadData: true
+      loadDataReferences: true
     })
     .then(parsed => {
       parsed.data.title.should.eql('Test post');
@@ -96,7 +96,7 @@ describe('#parseHTML(html, options)', function () {
     
   });
   
-  it('loads data if the options.loadData is set', function () {
+  it('loads data if the options.loadDataReferences is set', function () {
     var website = new WebsiteIO({
       fsRoot: path.join(__dirname, '../fixtures/website-1'),
     });
@@ -117,7 +117,7 @@ describe('#parseHTML(html, options)', function () {
         '</body>',
       '</html>',
     ].join('\n'), {
-      loadData: true
+      loadDataReferences: true
     })
     .then(parsed => {
       parsed.data.language.should.eql('en');

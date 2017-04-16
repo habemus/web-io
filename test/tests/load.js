@@ -12,14 +12,14 @@ Bluebird.promisifyAll(fs);
 // lib
 const WebsiteIO = require('../../lib');
 
-describe('#loadData(data)', function () {
-  it('#loadData(data)', function () {
+describe('#loadDataReferences(data)', function () {
+  it('#loadDataReferences(data)', function () {
     
     var website = new WebsiteIO({
       fsRoot: path.join(__dirname, '../fixtures/website-1'),
     });
     
-    return website.loadData({
+    return website.loadDataReferences({
       'posts@': '/posts/*.md',
       'post1@': '/posts/post-1.md',
     })
@@ -32,33 +32,30 @@ describe('#loadData(data)', function () {
   });
 });
 
-describe.only('#loadTemplate(templateName)', function () {
+describe('#loadContext(path)', function () {
   it('loads html templates', function () {
     
     var website = new WebsiteIO({
       fsRoot: path.join(__dirname, '../fixtures/website-1'),
     });
     
-    return website.loadTemplate('templates/post.html')
+    return website.loadContext('templates/post.html')
     .then(context => {
-      
-      console.log(context);
-      
-      context.data.language.should.eql('en');
+      context.language.should.eql('en');
       context.content.should.startWith('<!DOCTYPE html>')
     });
     
   });
 
-  it('loads markdown templates', function () {
+  it.skip('loads markdown templates', function () {
     
     var website = new WebsiteIO({
       fsRoot: path.join(__dirname, '../fixtures/website-1'),
     });
     
-    return website.loadTemplate('templates/post.md')
+    return website.loadContext('templates/post.md')
     .then(context => {
-      context.data.language.should.eql('en');
+      context.language.should.eql('en');
       context.content.should.startWith('<h1')
     });
     
