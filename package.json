@@ -25,6 +25,7 @@
     "path-to-regexp": "^1.7.0",
     "replace-ext": "^1.0.0",
     "root-path-builder": "git+ssh://git@bitbucket.org/habemus-tutti/root-path-builder.git",
+    "superagent": "^3.5.2",
     "traverse": "^0.6.6"
   }
 }
