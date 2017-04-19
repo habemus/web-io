@@ -1,6 +1,6 @@
 {
   "name": "web-io",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "glob": "^7.1.1",
-    "habemus-data": "^1.0.0",
+    "habemus-data": "^1.1.0",
     "marked": "^0.3.6",
     "mime": "^1.3.4",
     "nunjucks": "^3.0.0",
